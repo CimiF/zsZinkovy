@@ -1,4 +1,9 @@
-directionObj = 0
+def OtocSe(smer: number):
+    agent.turn(smer)
+    agent.destroy(FORWARD)
+    agent.move(FORWARD, 1)
+    agent.place(DOWN)
+    agent.turn(smer)
 
 def on_on_chat(num1, num2):
     for index in range(Math.ceil(num2 / 2)):
@@ -42,13 +47,7 @@ player.on_chat("placka", on_on_chat2)
 
 def polozCaru(delka: number):
     for index7 in range(delka):
-        polozCaru(1)
-# otoci se doprava pokud je true
-def otoc(doprava: bool):
-    if doprava:
-        pass
-    else:
-        pass
+        pohybapoloz()
 def CleanAndMove():
     if agent.inspect_block(FORWARD) != AIR:
         agent.destroy(FORWARD)
@@ -56,23 +55,21 @@ def CleanAndMove():
     if agent.inspect_block(DOWN) == AIR:
         agent.place(DOWN)
 
-def on_on_chat3():
-    polozCaru(1)
-    agent.turn(RIGHT_TURN)
-    agent.move(FORWARD, 1)
-    agent.turn(RIGHT_TURN)
-    polozCaru(1)
-    agent.turn(LEFT_TURN)
-    agent.move(FORWARD, 1)
-    agent.turn(LEFT_TURN)
+def on_on_chat3(num13, num23):
+    for index8 in range(Math.floor(num23 / 2)):
+        polozCaru(num13)
+        OtocSe(RIGHT_TURN)
+        polozCaru(num13)
+        OtocSe(LEFT_TURN)
+    if num23 % 2 > 0:
+        polozCaru(num13)
 player.on_chat("go", on_on_chat3)
 
 def TurnAndPlace(direction: str):
-    global directionObj
     if direction == "Left":
-        directionObj = LEFT_TURN
+        pass
     else:
-        directionObj = RIGHT_TURN
-    agent.turn(directionObj)
+        pass
+    agent.turn(LEFT_TURN)
     CleanAndMove()
-    agent.turn(directionObj)
+    agent.turn(LEFT_TURN)
