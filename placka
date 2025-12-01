@@ -1,20 +1,9 @@
-def OtocSe(smer: number):
+def OtocSe(smer: number, polozit = TRUE):
     agent.turn(smer)
-    agent.destroy(FORWARD)
-    agent.move(FORWARD, 1)
-    agent.place(DOWN)
+    pohybapoloz()
     agent.turn(smer)
-
-def on_on_chat(num1, num2):
-    for index in range(Math.ceil(num2 / 2)):
-        for index2 in range(num1):
-            CleanAndMove()
-        TurnAndPlace("Right")
-        for index3 in range(num1):
-            CleanAndMove()
-        TurnAndPlace("Left")
-        agent.collect_all()
-player.on_chat("placka1", on_on_chat)
+def DoMistnost(num: number, num2: number, num3: number):
+    pass
 
 def pohybapoloz():
     if agent.detect(AgentDetection.BLOCK, FORWARD):
@@ -23,55 +12,20 @@ def pohybapoloz():
     if not (agent.detect(AgentDetection.BLOCK, DOWN)):
         agent.place(DOWN)
 
-def on_on_chat2(num12, num22):
-    for index4 in range(num12):
-        agent.destroy(FORWARD)
-        agent.move(FORWARD, 1)
-        agent.place(DOWN)
-    agent.turn(RIGHT_TURN)
-    agent.destroy(FORWARD)
-    agent.move(FORWARD, 1)
-    agent.place(DOWN)
-    agent.turn(RIGHT_TURN)
-    for index5 in range(num12):
-        agent.destroy(FORWARD)
-        agent.move(FORWARD, 1)
-        agent.place(DOWN)
-    agent.turn(LEFT_TURN)
-    agent.destroy(FORWARD)
-    agent.move(FORWARD, 1)
-    agent.place(DOWN)
-    agent.turn(LEFT_TURN)
-    agent.collect_all()
-    for index6 in range(num22):
-        pass
-player.on_chat("placka", on_on_chat2)
+def on_on_chat(num13, num23, num33):
+    DoPodlaha(num13,num23)
 
-def polozCaru(delka: number):
-    for index7 in range(delka):
-        pohybapoloz()
-def CleanAndMove():
-    if agent.inspect_block(FORWARD) != AIR:
-        agent.destroy(FORWARD)
-    agent.move(FORWARD, 1)
-    if agent.inspect_block(DOWN) == AIR:
-        agent.place(DOWN)
+player.on_chat("go", on_on_chat)
 
-def on_on_chat3(num13, num23):
-    for index8 in range(Math.floor(num23 / 2)):
+def DoPodlaha(num13,num23):
+    for index in range(Math.floor(num23 / 2)):
         polozCaru(num13)
         OtocSe(RIGHT_TURN)
         polozCaru(num13)
         OtocSe(LEFT_TURN)
     if num23 % 2 > 0:
         polozCaru(num13)
-player.on_chat("go", on_on_chat3)
 
-def TurnAndPlace(direction: str):
-    if direction == "Left":
-        pass
-    else:
-        pass
-    agent.turn(LEFT_TURN)
-    CleanAndMove()
-    agent.turn(LEFT_TURN)
+def polozCaru(delka: number):
+    for index2 in range(delka):
+        pohybapoloz()
