@@ -1,31 +1,34 @@
-def OtocSe(smer: number, polozit = TRUE):
+pocatecniNatoceni = 0
+pocatecniPozice: Position = None
+def OtocSe(smer: number):
     agent.turn(smer)
     pohybapoloz()
     agent.turn(smer)
-def DoMistnost(num: number, num2: number, num3: number):
-    pass
-
 def pohybapoloz():
     if agent.detect(AgentDetection.BLOCK, FORWARD):
         agent.destroy(FORWARD)
     agent.move(FORWARD, 1)
     if not (agent.detect(AgentDetection.BLOCK, DOWN)):
         agent.place(DOWN)
-
-def on_on_chat(num13, num23, num33):
-    DoPodlaha(num13,num23)
-
-player.on_chat("go", on_on_chat)
-
-def DoPodlaha(num13,num23):
-    for index in range(Math.floor(num23 / 2)):
+def polozCaru(delka: number):
+    for index in range(delka):
+        pohybapoloz()
+def DoPodlaha(num13: number, num23: number):
+    for index2 in range(Math.floor(num23 / 2)):
         polozCaru(num13)
         OtocSe(RIGHT_TURN)
         polozCaru(num13)
         OtocSe(LEFT_TURN)
     if num23 % 2 > 0:
         polozCaru(num13)
+def DoM(num: number, num2: number, num3: number):
+    DoPodlaha(num, num2)
 
-def polozCaru(delka: number):
-    for index2 in range(delka):
-        pohybapoloz()
+def on_on_chat(num132, num232, num33):
+    global pocatecniNatoceni, pocatecniPozice
+    pocatecniNatoceni = agent.get_orientation()
+    player.say(pocatecniNatoceni)
+    pocatecniPozice = agent.get_position()
+    DoPodlaha(num132, num232)
+    agent.teleport(pocatecniPozice, pocatecniNatoceni)
+player.on_chat("go", on_on_chat)
